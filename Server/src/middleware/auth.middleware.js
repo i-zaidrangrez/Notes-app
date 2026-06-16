@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../config/config.js'
 import userModel from '../models/user.model.js'
 
-export async function getMeMiddleware(req,res,next) {
+export async function authMiddleware(req,res,next) {
     try {
         const token = req.cookies.token;
         if(!token){
