@@ -13,7 +13,6 @@ const Login = () => {
             email,
             password
         })
-        console.log(res.data)
         setEmail('')
         setPassword('')
     }
