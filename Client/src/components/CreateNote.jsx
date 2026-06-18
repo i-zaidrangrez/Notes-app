@@ -10,6 +10,7 @@ const CreateNote = (props) => {
 
         const Note = {
             id : Date.now(),
+            createdAt : new Date().toISOString().split("T")[0],
             title,
             content
         }
@@ -29,7 +30,7 @@ const CreateNote = (props) => {
             <textarea value={content} onChange={(e)=>{
                 setContent(e.target.value)
             }} placeholder='More Details' className='w-full h-3/4 p-4 outline-0 border rounded border-gray-400 '></textarea>
-            <button className='bg-green-300 text-black w-1/2 p-2 rounded'>Create Note</button>
+            <button className='bg-green-300 text-black w-1/2 p-2 rounded' onClick={()=>{props.SetCreateNote(true)}}>Create Note</button>
         </form>
         
     </div>

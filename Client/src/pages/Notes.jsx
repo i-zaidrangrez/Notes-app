@@ -15,9 +15,10 @@ const [newNotes, setNewNotes] = useState(notes)
 function addNotes(note) {
    setNewNotes(prev => [note, ...prev])
 }
-useEffect(()=>{
-  console.log(newNotes)
-},[newNotes])
+
+function deleteNotes(id){
+  setNewNotes(prev => prev.filter(note => note.id !== id))
+}
 
 
 
@@ -32,14 +33,14 @@ useEffect(()=>{
            </div>
         <div className='h-8/10 w-full mt-[5%] overflow-y-auto'>
            <div className='flex h-1/2 gap-5 flex-2 flex-wrap w-full '>
-          {newNotes.map((elem)=>{
-            return <Note elem = {elem}/>
+          {newNotes.map((elem,idx)=>{
+            return <Note key={idx} elem = {elem} deleteNotes = {deleteNotes}/>
           })}
         </div>
         </div>
        
     </div>
-    <div  className={`${createNote?"w-0" : "w-full md:w-2/3 lg:w-2/3"} duration-300 overflow-y-hidden`}><CreateNote addNotes = {addNotes}/></div>
+    <div  className={`${createNote?"w-0" : "w-full md:w-2/3 lg:w-2/3"} duration-300 overflow-y-hidden`}><CreateNote SetCreateNote = {setCreateNote} addNotes = {addNotes}/></div>
     </div>
   )
 }

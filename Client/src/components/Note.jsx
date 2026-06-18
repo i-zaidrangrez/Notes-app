@@ -1,11 +1,14 @@
-import { Star } from 'lucide-react'
+import { Star, Trash } from 'lucide-react'
 import React from 'react'
 
 const Note = (props) => {
   return (
-    <div className='h-full w-full md:w-[45%] lg:w-[30%] border border-gray-300 rounded p-2 flex flex-col place-content-between'>
+    <div key={props.key} className='h-full w-full md:w-[45%] lg:w-[30%] border border-gray-300 rounded py-2 px-4 flex flex-col place-content-between'>
         <div className=''>
-            <h1 className='text-2xl text-green-300 font-bold'>{props.elem.title}</h1>
+            <div className='flex place-content-between'>
+              <h1 className='text-2xl text-green-300 font-bold'>{props.elem.title}</h1>
+              <h1 className='text-2xl h-10 w-10 p-2 font-bold bg-red-500  rounded-full ' onClick={()=>props.deleteNotes(props.elem.id)}><Trash color='black'/></h1>
+            </div>
             <p className='mt-[5%] text-lg'>{props.elem.content}</p>
         </div>
         <div className='flex w-full place-content-between p-2'>
