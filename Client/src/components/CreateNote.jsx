@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
+import api from '../services/api'
 
 const CreateNote = (props) => {
 
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault()
-
         const Note = {
-            id : Date.now(),
-            createdAt : new Date().toISOString().split("T")[0],
             title,
             content
         }
-        props.addNotes(Note)
+        
+        const newNote = await api.post('/note/createnote',{
+            title,
+            content
+        })
+        props.setNewNotes(prev => [newNote.data.note, ...prev])
         
         setTitle("")
         setContent("")

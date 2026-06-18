@@ -3,21 +3,34 @@ import Sidebar from '../components/Sidebar'
 import Welcome from '../components/Welcome'
 import Note from '../components/Note.jsx'
 import CreateNote from '../components/CreateNote.jsx'
-import notes from '../data/notes.js'
+import api from '../services/api.js'
 
 
 
 const Notes = () => {
 const [createNote, setCreateNote] = useState(false)
 
-const [newNotes, setNewNotes] = useState(notes)
+const [newNotes, setNewNotes] = useState([])
 
-function addNotes(note) {
-   setNewNotes(prev => [note, ...prev])
-}
+useEffect(() => {
+  const fetchNotes = async () => {
+    try {
+      const response = await api.get('/note/getnote')
+      setNewNotes(response.data.notes)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+  fetchNotes()
+}, [])
+
+// async function addNotes(note) {
+//    setNewNotes(prev => [note, ...prev])
+// }
 
 function deleteNotes(id){
-  setNewNotes(prev => prev.filter(note => note.id !== id))
+  setNewNotes(prev => prev.filter(newNotes => newNotes._id !== id))
 }
 
 
@@ -40,7 +53,7 @@ function deleteNotes(id){
         </div>
        
     </div>
-    <div  className={`${createNote?"w-0" : "w-full md:w-2/3 lg:w-2/3"} duration-300 overflow-y-hidden`}><CreateNote SetCreateNote = {setCreateNote} addNotes = {addNotes}/></div>
+    <div  className={`${createNote?"w-0" : "w-full md:w-2/3 lg:w-2/3"} duration-300 overflow-y-hidden`}><CreateNote SetCreateNote = {setCreateNote} setNewNotes={setNewNotes} /></div>
     </div>
   )
 }
